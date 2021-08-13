@@ -8,6 +8,7 @@ import javax.swing.JApplet;
 
 public class Flag extends JApplet {
 	private final int STRIPES = 13;
+	private final int STARS = 50;
 
 	// SCALE FACTORS (A through L)
 	//
@@ -47,6 +48,9 @@ public class Flag extends JApplet {
 
 	// paint() will be called every time a resizing of an applet occurs
 	public void paint(Graphics g) {
+		flag_width = getHeight() * B > getWidth() ? getWidth() : getHeight() * B;
+		flag_height = flag_width / B;
+		stripe_height = flag_height * L;
 		drawBackground(g);
 		drawStripes(g);
 		drawField(g);
@@ -59,13 +63,19 @@ public class Flag extends JApplet {
 	
 	public void drawStripes(Graphics g) {
 		for (int idx = 0; idx < STRIPES; idx++) {
-			
+			g.setColor(idx % 2 == 0 ? Color.WHITE : Color.RED);
+			g.fillRect(0, (int) stripe_height * idx, (int) flag_width, (int) stripe_height);
 		}
 	}
 
 	public void drawField(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.fillRect(0, 0, (int) (flag_height * D), (int) (flag_height * C));
 	}
 
 	public void drawStars(Graphics g) {
+		g.setColor(Color.WHITE);
+		for (int idx = 0; idx < STARS; idx++) {
+		}
 	}
 }
