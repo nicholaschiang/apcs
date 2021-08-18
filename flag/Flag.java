@@ -77,12 +77,19 @@ public class Flag extends JApplet {
 
 	public void drawStars(Graphics g) {
     g.setColor(Color.WHITE);
-		((Graphics2D) g).fill(createDefaultStar(50, 200, 200));
+		for (int rows = 0; rows < 9; rows++) {
+			boolean oddRow = rows % 2 == 0;
+			for (int cols = 0; cols < (oddRow ? 6 : 5); cols++) {
+				double x = G * flag_height * (oddRow ? 1 : 2) + cols * flag_height * H * 2;
+				double y = E * flag_height + rows * flag_height * F;
+				double radius = flag_height * K / 2;
+				((Graphics2D) g).fill(createDefaultStar(radius, x, y));
+			}
+		}
 	}
 	
 	private static Shape createDefaultStar(double radius, double centerX, double centerY) {
-		return createStar(centerX, centerY, radius, radius * 2.63, 5,
-				Math.toRadians(-18));
+		return createStar(centerX, centerY, radius / 2.63, radius, 5, Math.toRadians(-18));
 	}
 
 	private static Shape createStar(double centerX, double centerY, double innerRadius, double outerRadius, int numRays, double startAngleRad) {
